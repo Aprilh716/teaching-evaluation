@@ -15,6 +15,7 @@ class XI_Controller extends CI_Controller
         $this->load->model('conf_model');
         $this->load->model('login_model');
         $this->load->model('user_model');
+        $this->load->helper('cookie');
 
         //当前路径
         global $RTR;
@@ -39,22 +40,23 @@ class XI_Controller extends CI_Controller
     protected function checkLogin()
     {
         $noLoginOption = array('index/*');
-        //检查一次性cookie
+        //检查cookie
         $verify = @$_COOKIE['__verify'];
-        //检查不需要登录的
-        foreach($noLoginOption as $item) {
-            list($module, $method) = explode('/', $item);
-            if($module == $this->_module && ($method == '*' || $this->_method == $method)) {
-                return true;
-            }
-        }
         $uid = $this->login_model->check_session_verify($verify);
         if (!$uid) {
+            //检查不需要登录的
+            foreach($noLoginOption as $item) {
+                list($module, $method) = explode('/', $item);
+                if($module == $this->_module && ($method == '*' || $this->_method == $method)) {
+                    return true;
+                }
+            }
             return false;
         }
         $this->_uid = $uid;
         $this->_user = $this->user_model->getUser($uid);
-        $verify = $this->login_model->create_session_verify($uid);
+        Login_model::create_session_verify($this->_user);
+        //setcookie('__role', $this->_user['role'], time() + 300 * 86400, '/', WWW_HOST, false, true);
         $this->_role = $this->_user['role'];
         $adminOption = array(
             'admin/*'
@@ -74,7 +76,11 @@ class XI_Controller extends CI_Controller
                 break;
             case Conf_model::ROLE_ADMIN:
                 $optional = $adminOption;
+                break;
+            default:
+                $optional = [];
         }
+        $optional = array_merge($optional,$noLoginOption);
         foreach($optional as $item) {
             list($module, $method) = explode('/', $item);
             if($module == $this->_module && ($method == '*' || $this->_method == $method)) {

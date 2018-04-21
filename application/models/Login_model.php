@@ -5,6 +5,7 @@ class Login_model extends CI_Model
     public function __construct()
     {
         $this->load->database();
+        $this->load->helper('cookie');
         $this->load->model('user_model');
     }
 
@@ -58,5 +59,6 @@ class Login_model extends CI_Model
     public static function clear_verify_cookie()
     {
         setcookie('__verify', '', -1, '/', WWW_HOST, false, true);
+        setcookie('__role', '', -1, '/', WWW_HOST, false, true);
     }
 }
