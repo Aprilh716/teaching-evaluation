@@ -8,24 +8,24 @@ class Login_model extends CI_Model
         $this->load->model('user_model');
     }
 
-    public function check_login($username, $password)
+    public function check_login($code, $password)
     {
-        $user = $this->user_model->getUserByUsername($username);
+        $user = $this->user_model->getUserByCode($code);
         if (empty($user)) {
             return false;
         }
-        if (md5($user['salt'] . ':' . $password) != $user['password']) {
+        if (md5($password) != $user['password']) {
             return false;
         }
         self::create_session_verify($user);
         return $user;
-
     }
 
-    public function create_session_verify($user)
+    public static function create_session_verify($user)
     {
         $uid = $user['uid'];
-        return md5(TIMESTAMP . ':' . $uid) . '_' . TIMESTAMP . '_' . $uid;
+        $verify =  md5(TIMESTAMP . ':' . $uid) . '_' . TIMESTAMP . '_' . $uid;
+        self::set_session_verify_cookie($verify);
     }
 
     public  function check_session_verify($verify)
@@ -44,7 +44,7 @@ class Login_model extends CI_Model
         if (empty($user)) {
             return false;
         }
-        if (md5($timestamp . ':' . $uid . ':' . $user['salt']) != $hash) {
+        if (md5($timestamp . ':' . $uid) != $hash) {
             return false;
         }
         return $uid;

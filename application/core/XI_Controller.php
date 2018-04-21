@@ -55,7 +55,6 @@ class XI_Controller extends CI_Controller
         $this->_uid = $uid;
         $this->_user = $this->user_model->getUser($uid);
         $verify = $this->login_model->create_session_verify($uid);
-        Login_model::set_session_verify($verify);
         $this->_role = $this->_user['role'];
         $adminOption = array(
             'admin/*'

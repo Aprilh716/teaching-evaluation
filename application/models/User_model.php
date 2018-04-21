@@ -38,6 +38,10 @@ class User_model extends CI_Model
         return $this->db->get_where('user', array('uid'=>$uid))
                         ->row_array();
     }
+    public function getUserByCode($code)
+    {
+        return $this->db->get_where('user', array('code'=>$code))->row_array();
+    }
 
     public function getManyUser($uids)
     {
