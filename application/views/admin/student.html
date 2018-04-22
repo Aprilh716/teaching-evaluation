@@ -32,47 +32,27 @@
                                 <th>班级</th>
                                 <th>操作</th>
                             </tr>
+                            {{if (!empty($student_list))}}
+                            {{foreach $student_list as $student}}
                             <tr>
-                                <td>1.</td>
-                                <td>李祥奥</td>
-                                <td>垃圾专业</td>
-                                <td>132</td>
+                                <td>{{$student['code']}}</td>
+                                <td>{{$student['name']}}</td>
+                                <td>{{$student['grade']['major']}}</td>
+                                <td>{{$student['grade']['grade']}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">修改</button>
                                     <button type="button" class="btn btn-primary btn-sm">删除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>张长城</td>
-                                <td>车辆工程</td>
-                                <td>142</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
-                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>钟文强</td>
-                                <td>牛逼专业</td>
-                                <td>132</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
-                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
-                                </td>
-                            </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
+                        <div class="pagination-box">
+                            {{$pageHtml nofilter}}
+                        </div>
                     </div>
                 </div>
                 <!-- /.box -->
@@ -100,11 +80,9 @@
                                 <label>选择</label>
                                 <select class="form-control" name="grade" required>
                                     <option value="">请选择……</option>
-                                    <option value="11">option 11</option>
-                                    <option value="12">option 12</option>
-                                    <option value="13">option 13</option>
-                                    <option value="14">option 14</option>
-                                    <option value="15">option 15</option>
+                                    {{foreach $grade_list as $grade}}
+                                    <option value="{{$grade['gid']}}">{{$grade['major']}} {{$grade['grade']}}</option>
+                                    {{/foreach}}
                                 </select>
                             </div>
                         </div>
@@ -124,18 +102,18 @@
 	$(".add-user").click(function () {
 		var name = $("input[name='name']").val();
 		var code = $("input[name='code']").val();
-		var grade = $("select[name='grade']").val();
+		var grade_id = $("select[name='grade']").val();
 
-		if (name === "" || code === "" || grade === "") {
-			return ;
+		if (name === "" || code === "" || grade_id === "") {
+			//return ;
 		}
 		$.ajax({
 			url: "/admin/add_user",
 			type: "post",
-			data: {name: name, code: code, grade: grade, role: 1},
+			data: {name: name, code: code, grade_id: grade_id, role: 1},
 			success: function (data) {
 				console.log(data)
-				if (data.code === 1) {
+				if (data.data.code === 1) {
 					location.reload();
 				} else {
 					alert('录入信息失败，请稍后重试');

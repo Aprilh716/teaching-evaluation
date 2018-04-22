@@ -21,8 +21,11 @@ class Admin extends XI_Controller {
     public function teach()
     {
         $start = intval($this->input->get('start'));
-        $count = 2;
+        $count = 5;
         $teacher_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_TEACHER], $start, $count, $total);
+        foreach ($teacher_list as $k => $v) {
+            //$teacher_list[$k]['sorce'] = $this->user_model->getAvgScore($v['uid']);
+        }
         $pageHtml = getPageHtml($start, $count, $total, '/admin/teach', 'normal');
         $params = [
             'pageHtml' => $pageHtml,
@@ -34,12 +37,17 @@ class Admin extends XI_Controller {
     public function student()
     {
         $start = intval($this->input->get('start'));
-        $count = 2;
+        $count = 5;
         $student_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_STUDENT], $start, $count, $total);
+        foreach ($student_list as $k => $v) {
+            $student_list[$k]['grade'] = $this->user_model->getGradeByGid($v['grade_id']);
+        }
+        $grade_list = $this->user_model->getAllGrade();
         $pageHtml = getPageHtml($start, $count, $total, '/admin/student', 'normal');
         $params = [
             'pageHtml' => $pageHtml,
-            'student_list' => $student_list
+            'student_list' => $student_list,
+            'grade_list' => $grade_list,
         ];
         $this->display('admin/student.html', $params);
     }
@@ -59,6 +67,9 @@ class Admin extends XI_Controller {
             'code' => $this->input->post('code'),
             'password' => md5($this->input->post('code')),
         );
+        if ($arr['role'] == Conf_model::ROLE_STUDENT) {
+            $arr['grade_id'] = $this->input->post('grade_id');
+        }
         //初始密码
         $uid = $this->user_model->addUser($arr);
         if ($uid) {
