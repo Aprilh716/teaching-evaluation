@@ -13,6 +13,13 @@ class Conf_model extends CI_Model
         self::ROLE_STUDENT => 'student',
     );
 
+    public static  $answer = array(
+        4 => '非常优秀',
+        3 => '不孬',
+        2 => '一般化',
+        1 => '辣鸡',
+    );
+
     public function __construct()
     {
         $this->load->database();
