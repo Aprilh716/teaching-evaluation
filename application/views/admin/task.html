@@ -64,7 +64,7 @@
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="reset" class="btn btn-default">取消</button>
-                            <button type="submit" class="btn btn-info pull-right">确定</button>
+                            <button type="submit" class="btn btn-info pull-right add-btn">确定</button>
                         </div>
                         <!-- /.box-footer -->
                     </form>
@@ -84,5 +84,26 @@
 </div>
 
 <script>
+	$(".add-btn").click(function () {
+		var teacher = $("select[name='teacher']").val();
+		var lesson = $("select[name='lesson']").val();
+		var grade = $("select[name='grade']").val();
 
+		if (teacher === "" || lesson === "" || grade === "") {
+			return ;
+		}
+		$.ajax({
+			url: "/admin/add_user",
+			type: "post",
+			data: {teacher: teacher, lesson: lesson, grade: grade},
+			success: function (data) {
+				console.log(data)
+				if (data.data.code === 1) {
+					location.reload();
+				} else {
+					alert('录入信息失败，请稍后重试');
+				}
+			},
+		});
+	});
 </script>
