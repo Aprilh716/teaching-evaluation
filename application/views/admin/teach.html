@@ -101,8 +101,9 @@
             type: "post",
             data: {name: name, code: code, role: 2},
             success: function (data) {
-            	console.log(data)
-            	if (data.data.code === 1) {
+				var ret = JSON.parse(data)
+            	console.log(ret)
+            	if (ret.data.code === 1) {
 					location.reload();
                 } else {
             		alert('录入信息失败，请稍后重试');

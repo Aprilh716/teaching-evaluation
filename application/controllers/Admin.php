@@ -103,9 +103,9 @@ class Admin extends XI_Controller {
         //初始密码
         $uid = $this->user_model->addUser($arr);
         if ($uid) {
-            $this->responseJson(array('result'=>1,'uid' => $uid));
+            $this->responseJson(array('code'=>1,'uid' => $uid));
         } else {
-            $this->responseJson(array('result'=>0));
+            $this->responseJson(array('code'=>0));
         }
     }
 
@@ -113,7 +113,7 @@ class Admin extends XI_Controller {
     {
         //删除用户
         $this->user_model->delUser($uid);
-        $this->responseJson(array('result'=>1));
+        $this->responseJson(array('code'=>1));
     }
 
     public function add_question()
@@ -125,9 +125,9 @@ class Admin extends XI_Controller {
         );
         $qid = $this->lesson_model->addQuestion($arr);
         if ($qid) {
-            $this->responseJson(array('result'=>1,'qid' => $qid));
+            $this->responseJson(array('code'=>1,'qid' => $qid));
         } else {
-            $this->responseJson(array('result'=>0));
+            $this->responseJson(array('code'=>0));
         }
     }
 
@@ -141,9 +141,9 @@ class Admin extends XI_Controller {
         );
         $id = $this->lesson_model->addTask($arr);
         if ($id) {
-            $this->responseJson(array('result'=>1,'qid' => $qid));
+            $this->responseJson(array('code'=>1,'qid' => $id));
         } else {
-            $this->responseJson(array('result'=>0));
+            $this->responseJson(array('code'=>0));
         }
     }
 }
