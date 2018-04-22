@@ -22,7 +22,7 @@
                         </h3>
                     </div>
                     <!-- /.box-header -->
-                    <form class="form-horizontal" action="#">
+                    <form class="form-horizontal" action="/admin/add_task" method="post">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="teacher" class="col-sm-2 control-label">分配教师</label>
@@ -30,11 +30,9 @@
                                 <div class="col-sm-10">
                                     <select class="form-control" name="teacher" id="teacher" required>
                                         <option value="">请选择……</option>
-                                        <option value="11">教师1</option>
-                                        <option value="11">教师2</option>
-                                        <option value="11">教师1</option>
-                                        <option value="11">教师1</option>
-                                        <option value="11">教师1</option>
+                                        {{foreach $teacher_list as $teacher}}
+                                        <option value="{{$teacher['uid']}}">{{$teacher['name']}}</option>
+                                        {{/foreach}}
                                     </select>
                                 </div>
                             </div>
@@ -44,11 +42,9 @@
                                 <div class="col-sm-10">
                                     <select class="form-control" name="lesson" id="lesson" required>
                                         <option value="">请选择……</option>
-                                        <option value="11">课程1</option>
-                                        <option value="11">课程1</option>
-                                        <option value="11">课程1</option>
-                                        <option value="11">课程1</option>
-                                        <option value="11">课程1</option>
+                                        {{foreach $lesson_list as $lesson}}
+                                        <option value="{{$lesson['lid']}}">{{$lesson['name']}}</option>
+                                        {{/foreach}}
                                     </select>
                                 </div>
                             </div>
@@ -58,11 +54,9 @@
                                 <div class="col-sm-10">
                                     <select class="form-control" name="grade" id="grade" required>
                                         <option value="">请选择……</option>
-                                        <option value="11">信管112</option>
-                                        <option value="11">信管112</option>
-                                        <option value="11">信管112</option>
-                                        <option value="11">信管112</option>
-                                        <option value="11">信管112</option>
+                                        {{foreach $grade_list as $grade}}
+                                        <option value="{{$grade['gid']}}">{{$grade['major']}}{{$grade['grade']}}</option>
+                                        {{/foreach}}
                                     </select>
                                 </div>
                             </div>

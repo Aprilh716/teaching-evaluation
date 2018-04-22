@@ -13,6 +13,11 @@ class Lesson_model extends CI_Model
         $this->load->helper('misc');
     }
 
+    public function getAllLesson()
+    {
+        return $this->db->select('*')->from('lesson')->get()->result_array();
+    }
+
     public function getAvgScore($teacher_uid)
     {
         //
@@ -58,6 +63,15 @@ class Lesson_model extends CI_Model
         $data['created_at'] = TIMESTR;
         $data['updated_at'] = TIMESTR;
         $this->db->insert('question', $data);
+        return $this->db->insert_id();
+    }
+
+
+    public function addTask($arr)
+    {
+        $data['created_at'] = TIMESTR;
+        $data['updated_at'] = TIMESTR;
+        $this->db->insert('lesson_teacher_grade', $data);
         return $this->db->insert_id();
     }
 

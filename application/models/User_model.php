@@ -43,6 +43,11 @@ class User_model extends CI_Model
         return $this->db->get_where('user', array('code'=>$code))->row_array();
     }
 
+    public function getUserByRole($role)
+    {
+        return $this->db->get_where('user', array('role'=>$role))->result_array();
+    }
+
     public function getManyUser($uids)
     {
         $uids = array_unique($uids);

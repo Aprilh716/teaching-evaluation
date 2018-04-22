@@ -69,7 +69,17 @@ class Admin extends XI_Controller {
 
     public function task()
     {
-        $this->display('admin/task.html', []);
+        $teacher_list = $this->user_model->getUserByRole(Conf_model::ROLE_TEACHER);
+        $grade_list = $this->user_model->getAllGrade();
+        $lesson_list = $this->lesson_model->getAllLesson();
+
+        $params = [
+            'teacher_list' => $teacher_list,
+            'grade_list' => $grade_list,
+            'lesson_list' => $lesson_list
+        ];
+
+        $this->display('admin/task.html', $params);
     }
 
     /**
@@ -115,6 +125,22 @@ class Admin extends XI_Controller {
         );
         $qid = $this->lesson_model->addQuestion($arr);
         if ($qid) {
+            $this->responseJson(array('result'=>1,'qid' => $qid));
+        } else {
+            $this->responseJson(array('result'=>0));
+        }
+    }
+
+    public function add_task()
+    {
+        //添加
+        $arr = array(
+            'teacher_uid' => intval($this->input->post('teacher')), //0|1
+            'lid' => intval($this->input->post('lesson')),
+            'gid' => intval($this->input->post('grade')),
+        );
+        $id = $this->lesson_model->addTask($arr);
+        if ($id) {
             $this->responseJson(array('result'=>1,'qid' => $qid));
         } else {
             $this->responseJson(array('result'=>0));
