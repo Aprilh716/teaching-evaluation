@@ -54,6 +54,7 @@ class Login_model extends CI_Model
     public static function set_session_verify_cookie($verify)
     {
         setcookie('__verify', $verify, time() + 300 * 86400, '/', WWW_HOST, false, true);
+        set_cookie('__verify', $verify, time() + 300 * 86400, '/', WWW_HOST, false, true);
     }
 
     public static function clear_verify_cookie()

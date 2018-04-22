@@ -36,7 +36,7 @@ class Index extends XI_Controller
         $code = $this->input->post('code');
         $password = $this->input->post('password');
         $user = $this->login_model->check_login($code, $password);
-        //setcookie('__role', $this->_user['role'], time() + 300 * 86400, '/', WWW_HOST, false, true);
+
         if ($user) {
             header('Location:/');
         }

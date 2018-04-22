@@ -13,7 +13,7 @@ class Admin extends XI_Controller {
     public function index()
     {
         //管理员首页
-        echo 'admin';
+        $this->display('admin/home.html', []);
     }
 
     public function addUserViews()
