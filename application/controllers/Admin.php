@@ -16,6 +16,11 @@ class Admin extends XI_Controller {
         $this->display('admin/home.html', []);
     }
 
+    public function teach()
+    {
+        $this->display('admin/teach.html', []);
+    }
+
     public function addUserViews()
     {
         //添加用户页面
