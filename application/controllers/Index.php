@@ -33,21 +33,12 @@ class Index extends XI_Controller
 
     public function auth()
     {
-        ob_start();
         $code = $this->input->post('code');
         $password = $this->input->post('password');
         $user = $this->login_model->check_login($code, $password);
-        $verify =  md5(TIMESTAMP . ':' . $user['uid']) . '_' . TIMESTAMP . '_' .  $user['uid'];
-        var_dump($verify);
-        setcookie('__verify',$verify, 865000);
-        //setcookie('__verify', $verify, time() + 300 * 86400, '/', WWW_HOST, false, true);
-        //setcookie('__role', $user['role'], time() + 300 * 86400, '/', WWW_HOST, false, true);
-        $verify = @$_COOKIE['__verify'];
-        var_dump($verify);exit;
-        //$uid = $this->login_model->check_session_verify($verify);
-        //var_dump($uid);exit;
+        //setcookie('__role', $this->_user['role'], time() + 300 * 86400, '/', WWW_HOST, false, true);
         if ($user) {
-            //header('Location:/');
+            header('Location:/');
         }
     }
 
