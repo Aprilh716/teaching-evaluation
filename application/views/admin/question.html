@@ -2,13 +2,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            录入学生
+            录入题目
             <small></small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
             <li><a href="#">主体</a></li>
-            <li class="active">学生</li>
+            <li class="active">题目</li>
         </ol>
     </section>
 
@@ -19,7 +19,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <button type="button" class="btn btn-block btn-primary btn-sm"  data-toggle="modal" data-target=".bs-example-modal-sm">录入学生</button>
+                            <button type="button" class="btn btn-block btn-primary btn-sm"  data-toggle="modal" data-target=".bs-example-modal-sm">录入题目</button>
                         </h3>
                     </div>
                     <!-- /.box-header -->
@@ -27,31 +27,35 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>学生名称</th>
-                                <th>专业</th>
-                                <th>班级</th>
+                                <th>题目类型</th>
+                                <th>题目</th>
                                 <th>操作</th>
                             </tr>
-                            {{if (!empty($student_list))}}
-                            {{foreach $student_list as $student}}
                             <tr>
-                                <td>{{$student['code']}}</td>
-                                <td>{{$student['name']}}</td>
-                                <td>{{$student['grade']['major']}}</td>
-                                <td>{{$student['grade']['grade']}}</td>
+                                <td> 1. </td>
+                                <td> 选择题 </td>
+                                <td> 课堂气氛如何？ </td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">修改</button>
                                     <button type="button" class="btn btn-primary btn-sm">删除</button>
                                 </td>
                             </tr>
-                            {{/foreach}}
-                            {{/if}}
+                            <tr>
+                                <td> 2. </td>
+                                <td> 描述题 </td>
+                                <td> 对老师有什么要说的？ </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
+                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <!-- /.box-body -->
+
                     <div class="box-footer clearfix">
                         <div class="pagination-box">
-                            {{$pageHtml nofilter}}
+
                         </div>
                     </div>
                 </div>
@@ -64,26 +68,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">录入学生</h4>
+                        <h4 class="modal-title">录入题目</h4>
                     </div>
                     <form>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="major-name" class="control-label">学生名称</label>
-                                <input type="text" required class="form-control" name="name" id="major-name" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="major-number" class="control-label">学生学号</label>
-                                <input type="number" required class="form-control" name="code" id="major-number" value="">
-                            </div>
-                            <div class="form-group">
-                                <label>分配班级：</label>
-                                <select class="form-control" name="grade" required>
-                                    <option value="">请选择……</option>
-                                    {{foreach $grade_list as $grade}}
-                                    <option value="{{$grade['gid']}}">{{$grade['major']}} {{$grade['grade']}}</option>
-                                    {{/foreach}}
+                                <label>选择题目类型：</label>
+                                <select class="form-control" name="type" required>
+                                    <option value="0">选择题</option>
+                                    <option value="1">描述题</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="major-number" class="control-label">题目内容：</label>
+                                <input type="text" required class="form-control" name="description" id="major-number" value="">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -100,17 +98,16 @@
 
 <script>
 	$(".add-user").click(function () {
-		var name = $("input[name='name']").val();
-		var code = $("input[name='code']").val();
-		var grade_id = $("select[name='grade']").val();
+		var type = $("input[name='type']").val();
+		var description = $("input[name='description']").val();
 
-		if (name === "" || code === "" || grade_id === "") {
-			//return ;
+		if (type === "" || description === "") {
+			return ;
 		}
 		$.ajax({
-			url: "/admin/add_user",
+			url: "/admin/add_question",
 			type: "post",
-			data: {name: name, code: code, grade_id: grade_id, role: 1},
+			data: {type: type, description: description},
 			success: function (data) {
 				console.log(data)
 				if (data.data.code === 1) {
