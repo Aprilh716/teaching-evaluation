@@ -49,6 +49,11 @@ class Admin extends XI_Controller {
         $this->display('admin/question.html', []);
     }
 
+    public function task()
+    {
+        $this->display('admin/task.html', []);
+    }
+
     /**
      * 添加用户
      * Author qina

@@ -124,7 +124,7 @@
                 </li>
                 {{if ($_role === '3')}}
                 <li class="treeview">
-                    <a href="#"
+                    <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>主体</span>
                         <span class="pull-right-container">
@@ -136,8 +136,17 @@
                         <!--<li><a href="#"><i class="fa fa-circle-o"></i> 班级</a></li>-->
                         <li><a href="/admin/teach"><i class="fa fa-circle-o"></i> 教师</a></li>
                         <li><a href="/admin/student"><i class="fa fa-circle-o"></i> 学生</a></li>
-                        <li><a href="/admin/question"><i class="fa fa-circle-o"></i> 录入题目</a></li>
+                        <li><a href="/admin/question"><i class="fa fa-circle-o"></i> 题目</a></li>
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/admin/task">
+                    <i class="fa fa-files-o"></i>
+                    <span>课程分配</span>
+                    <span class="pull-right-container">
+
+                        </span>
+                    </a>
                 </li>
                 {{elseif ($_role === '2')}}
                 {{/if}}
