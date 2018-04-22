@@ -20,8 +20,25 @@ class Conf_model extends CI_Model
         1 => '辣鸡',
     );
 
+    public static $questionType = array(
+        0 => '选择题',
+        1 => '主观题'
+     );
+
     public function __construct()
     {
         $this->load->database();
+    }
+
+    public function formatQuestion($list)
+    {
+        if (empty($list)) {
+            return [];
+        }
+
+        foreach ($list as $k => $item) {
+            $list[$k]['type_desc'] = self::$questionType[$item['type']];
+        }
+        return $list;
     }
 }

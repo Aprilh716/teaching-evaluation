@@ -31,31 +31,26 @@
                                 <th>题目</th>
                                 <th>操作</th>
                             </tr>
+                            {{if (!empty($question_list))}}
+                            {{foreach $question_list as $question}}
                             <tr>
-                                <td> 1. </td>
-                                <td> 选择题 </td>
-                                <td> 课堂气氛如何？ </td>
+                                <td> {{$question['qid']}} </td>
+                                <td> {{$question['type_desc']}} </td>
+                                <td> {{$question['description']}} </td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">修改</button>
                                     <button type="button" class="btn btn-primary btn-sm">删除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td> 2. </td>
-                                <td> 描述题 </td>
-                                <td> 对老师有什么要说的？ </td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
-                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
-                                </td>
-                            </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer clearfix">
                         <div class="pagination-box">
-
+                            {{$pageHtml nofilter}}
                         </div>
                     </div>
                 </div>
@@ -98,7 +93,7 @@
 
 <script>
 	$(".add-user").click(function () {
-		var type = $("input[name='type']").val();
+		var type = $("select[name='type']").val();
 		var description = $("input[name='description']").val();
 
 		if (type === "" || description === "") {

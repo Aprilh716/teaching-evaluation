@@ -102,4 +102,14 @@ class User_model extends CI_Model
             ->get()
             ->result_array();
     }
+
+    public function getGradeByGid($gid)
+    {
+        return $this->db->select('*')->from('grade')->where('gid',$gid)->get()->row_array();
+    }
+
+    public function getAllGrade()
+    {
+        return $this->db->select('*')->from('grade')->get()->result_array();
+    }
 }
