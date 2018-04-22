@@ -79,25 +79,49 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">录入教师</h4>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                    <form>
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="major-name" class="control-label">教师名称</label>
-                                <input type="text" class="form-control" id="major-name">
+                                <input type="text" required class="form-control" name="name" id="major-name" value="">
                             </div>
                             <div class="form-group">
                                 <label for="major-number" class="control-label">教师工号</label>
-                                <input type="number" class="form-control" id="major-number">
+                                <input type="number" required class="form-control" name="code" id="major-number" value="">
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary">添加</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="submit" class="btn btn-primary add-user">添加</button>
+                        </div>
+                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </section>
     <!-- /.content -->
 </div>
+
+<script>
+    $(".add-user").click(function () {
+        var name = $("input[name='name']").val();
+        var code = $("input[name='code']").val();
+
+        if (name === "" || code === "") {
+        	return ;
+        }
+        $.ajax({
+            url: "/admin/add_user",
+            type: "post",
+            data: {name: name, code: code, role: 3},
+            success: function (data) {
+            	console.log(data)
+            	if (data.code === 1) {
+					location.reload();
+                } else {
+            		alert('录入信息失败，请稍后重试');
+                }
+            },
+        });
+    });
+</script>
