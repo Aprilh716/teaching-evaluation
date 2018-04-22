@@ -19,6 +19,7 @@ class Admin extends XI_Controller {
     public function addUserViews()
     {
         //添加用户页面
+
     }
 
     public function addUser()
