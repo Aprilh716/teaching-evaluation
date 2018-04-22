@@ -105,7 +105,7 @@
 		var grade_id = $("select[name='grade']").val();
 
 		if (name === "" || code === "" || grade_id === "") {
-			//return ;
+			return ;
 		}
 		$.ajax({
 			url: "/admin/add_user",

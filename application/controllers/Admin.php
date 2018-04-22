@@ -8,6 +8,7 @@ class Admin extends XI_Controller {
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('conf_model');
+        $this->load->model('lesson_model');
         $this->load->helper('page');
     }
 
@@ -24,7 +25,7 @@ class Admin extends XI_Controller {
         $count = 5;
         $teacher_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_TEACHER], $start, $count, $total);
         foreach ($teacher_list as $k => $v) {
-            //$teacher_list[$k]['sorce'] = $this->user_model->getAvgScore($v['uid']);
+            //$teacher_list[$k]['sorce'] = $this->lesson_model->getAvgScore($v['uid']);
         }
         $pageHtml = getPageHtml($start, $count, $total, '/admin/teach', 'normal');
         $params = [
@@ -54,7 +55,16 @@ class Admin extends XI_Controller {
 
     public function question()
     {
-        $this->display('admin/question.html', []);
+        $start = intval($this->input->get('start'));
+        $count = 2;
+        $question_list = $this->lesson_model->getQuestionList([], $start, $count, $total);
+        $question_list = $this->conf_model->formatQuestion($question_list);
+        $pageHtml = getPageHtml($start, $count, $total, '/admin/question', 'normal');
+        $params = [
+            'pageHtml' => $pageHtml,
+            'question_list' => $question_list,
+            ];
+        $this->display('admin/question.html', $params);
     }
 
     /**
@@ -89,5 +99,20 @@ class Admin extends XI_Controller {
         //删除用户
         $this->user_model->delUser($uid);
         $this->responseJson(array('result'=>1));
+    }
+
+    public function add_question()
+    {
+        //添加
+        $arr = array(
+            'type' => intval($this->input->post('type')), //0|1
+            'description' => $this->input->post('description')
+        );
+        $qid = $this->lesson_model->addQuestion($arr);
+        if ($qid) {
+            $this->responseJson(array('result'=>1,'qid' => $qid));
+        } else {
+            $this->responseJson(array('result'=>0));
+        }
     }
 }

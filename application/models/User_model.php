@@ -112,11 +112,4 @@ class User_model extends CI_Model
     {
         return $this->db->select('*')->from('grade')->get()->result_array();
     }
-
-    public function getAvgScore($teacher_uid)
-    {
-        //
-        $lesson_teacher_grade_ids = $this->db->select('id')->from('lesson_teacher_grade')->where('teacher_uid',$teacher_uid)->get()->result_array();
-        return $lesson_teacher_grade_ids;
-    }
 }
