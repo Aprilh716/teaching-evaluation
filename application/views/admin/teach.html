@@ -31,33 +31,19 @@
                                 <th>学生评分</th>
                                 <th>操作</th>
                             </tr>
+                            {{if (!empty($teacher_list))}}
+                            {{foreach $teacher_list as $teacher}}
                             <tr>
-                                <td>1.</td>
-                                <td>李祥奥</td>
+                                <td> {{$teacher['code']}} </td>
+                                <td> {{$teacher['name']}} </td>
                                 <td>1938</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">修改</button>
                                     <button type="button" class="btn btn-primary btn-sm">删除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>张长城</td>
-                                <td>1783</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
-                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>钟文强</td>
-                                <td>1377</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">修改</button>
-                                    <button type="button" class="btn btn-primary btn-sm">删除</button>
-                                </td>
-                            </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -113,7 +99,7 @@
         $.ajax({
             url: "/admin/add_user",
             type: "post",
-            data: {name: name, code: code, role: 3},
+            data: {name: name, code: code, role: 2},
             success: function (data) {
             	console.log(data)
             	if (data.code === 1) {

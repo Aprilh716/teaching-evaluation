@@ -31,13 +31,26 @@ class Admin extends XI_Controller {
         $this->display('admin/teach.html', $params);
     }
 
+    public function student()
+    {
+        $start = intval($this->input->get('start'));
+        $count = 2;
+        $student_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_STUDENT], $start, $count, $total);
+        $pageHtml = getPageHtml($start, $count, $total, '/admin/student', 'normal');
+        $params = [
+            'pageHtml' => $pageHtml,
+            'student_list' => $student_list
+        ];
+        $this->display('admin/student.html', $params);
+    }
+
     /**
      * 添加用户
      * Author qina
      * Date 2018/4/22
      * Time 下午1:37
      */
-    public function addUser()
+    public function add_user()
     {
         //添加用户
         $arr = array(
@@ -54,8 +67,6 @@ class Admin extends XI_Controller {
             $this->responseJson(array('result'=>0));
         }
     }
-
-    //public function
 
     public function delUser($uid)
     {
