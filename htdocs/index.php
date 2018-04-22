@@ -59,8 +59,8 @@
 
 //define('ENVIRONMENT', 'production');
 define('ENVIRONMENT', 'testing');
+//define('REALPATH', '/Users/qina/workspace/php-space/teaching-evaluation/');
 define('REALPATH', '/Users/zhongwenqiang/workspace/code/evaluation/');
-//define('REALPATH', '/Users/zhongwenqiang/workspace/code/evaluation/');
 
 //define('WWW_HOST', 'teaching');
 define('WWW_HOST', 'loc.jiaowu.com');
