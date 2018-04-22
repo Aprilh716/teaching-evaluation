@@ -59,15 +59,20 @@ class User_model extends CI_Model
 		return list2map($res, 'uid');
     }
 
+
     /**
-     * Admin使用
+     * 用户列表
+     * Date 2018/4/22
+     * Time 下午1:55
      * @param $where
      * @param $start
      * @param $count
      * @param $total
+     * @return mixed
      */
     public function getUserList($where, $start, $count, &$total)
     {
+        /*
         if(isset($where['keyword'])) {
             $keyword = $where['keyword'];
             unset($where['keyword']);
@@ -76,6 +81,7 @@ class User_model extends CI_Model
         if(!empty($keyword)) {
             $this->db->like('id_name', $keyword);
         }
+        */
 
         $res = $this->db->select('count(1) as total')
             ->from('user')
@@ -84,10 +90,11 @@ class User_model extends CI_Model
             ->row_array();
 
         $total = $res['total'];
-
+        /*
         if(!empty($keyword)) {
             $this->db->like('id_name', $keyword);
         }
+        */
         return $this->db->select('*')
             ->from('user')
             ->where($where)

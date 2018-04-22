@@ -7,6 +7,8 @@ class Admin extends XI_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('conf_model');
+        $this->load->helper('page');
     }
 
     //管理员首页
@@ -18,22 +20,31 @@ class Admin extends XI_Controller {
 
     public function teach()
     {
-        $this->display('admin/teach.html', []);
+        $start = intval($this->input->get('start'));
+        $count = 2;
+        $teacher_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_TEACHER], $start, $count, $total);
+        $pageHtml = getPageHtml($start, $count, $total, '/admin/teach', 'normal');
+        $params = [
+            'pageHtml' => $pageHtml,
+            'teacher_list' => $teacher_list
+        ];
+        $this->display('admin/teach.html', $params);
     }
 
-    public function addUserViews()
-    {
-        //添加用户页面
-
-    }
-
+    /**
+     * 添加用户
+     * Author qina
+     * Date 2018/4/22
+     * Time 下午1:37
+     */
     public function addUser()
     {
         //添加用户
         $arr = array(
             'role' => intval($this->input->post('role')), //1|2|3
             'name' => $this->input->post('name'),
-            'password' => '123456'
+            'code' => $this->input->post('code'),
+            'password' => md5($this->input->post('code')),
         );
         //初始密码
         $uid = $this->user_model->addUser($arr);
@@ -43,6 +54,8 @@ class Admin extends XI_Controller {
             $this->responseJson(array('result'=>0));
         }
     }
+
+    //public function
 
     public function delUser($uid)
     {
