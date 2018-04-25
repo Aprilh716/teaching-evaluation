@@ -6,13 +6,17 @@ class Teacher extends XI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('teacher_model');
     }
 
     //教师首页
     public function index()
     {
         //教师首页
-        echo 'teacher';
+        $this->display('teacher/home.html', []);
+    }
+
+    public function see()
+    {
+        $this->display('teacher/see.html', []);
     }
 }
