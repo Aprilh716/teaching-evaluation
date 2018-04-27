@@ -38,6 +38,6 @@ class Student extends XI_Controller {
 
     public function answer_question()
     {
-        //
+        $this->display('student/answer_question.html', []);
     }
 }
