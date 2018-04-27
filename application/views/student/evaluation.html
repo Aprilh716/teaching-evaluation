@@ -25,47 +25,27 @@
                                 <th>教师名称</th>
                                 <th>操作</th>
                             </tr>
+                            {{if (!empty($task_list))}}
+                            {{foreach $task_list as $task}}
                             <tr>
-                                <td>1.</td>
-                                <td>高等数学</td>
-                                <td>李翔奥</td>
+                                <td>{{$task['id']}}.</td>
+                                <td>{{$task['lesson']['name']}}</td>
+                                <td>{{$task['teacher']['name']}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm">
                                         <a href="/student/">进入评教</a>
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>C语言</td>
-                                <td>张长城</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">
-                                        <a href="">进入评教</a>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>应用密码学</td>
-                                <td>钟文强</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm">
-                                        <a href="">进入评教</a>
-                                    </button>
-                                </td>
-                            </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
+                        <div class="pagination-box">
+                            {{$pageHtml nofilter}}
+                        </div>
                     </div>
                 </div>
                 <!-- /.box -->

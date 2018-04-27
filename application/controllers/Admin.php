@@ -139,6 +139,9 @@ class Admin extends XI_Controller {
             'lid' => intval($this->input->post('lesson')),
             'gid' => intval($this->input->post('grade')),
         );
+        if (!$arr['teacher_uid'] || !$arr['lid'] || !$arr['gid']) {
+            $this->responseJson(array('code'=>0));
+        }
         $id = $this->lesson_model->addTask($arr);
         if ($id) {
             $this->responseJson(array('code'=>1,'qid' => $id));

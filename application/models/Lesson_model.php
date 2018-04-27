@@ -25,19 +25,13 @@ class Lesson_model extends CI_Model
         return $lesson_teacher_grade_ids;
     }
 
+    public function getLesson($lid)
+    {
+        return $this->db->get_where('lesson', array('lid'=>$lid))->row_array();
+    }
+
     public function getQuestionList($where, $start, $count, &$total)
     {
-        /*
-        if(isset($where['keyword'])) {
-            $keyword = $where['keyword'];
-            unset($where['keyword']);
-        }
-
-        if(!empty($keyword)) {
-            $this->db->like('id_name', $keyword);
-        }
-        */
-
         $res = $this->db->select('count(1) as total')
             ->from('question')
             ->where($where)
@@ -45,11 +39,6 @@ class Lesson_model extends CI_Model
             ->row_array();
 
         $total = $res['total'];
-        /*
-        if(!empty($keyword)) {
-            $this->db->like('id_name', $keyword);
-        }
-        */
         return $this->db->select('*')
             ->from('question')
             ->where($where)
@@ -69,10 +58,27 @@ class Lesson_model extends CI_Model
 
     public function addTask($arr)
     {
-        $data['created_at'] = TIMESTR;
-        $data['updated_at'] = TIMESTR;
-        $this->db->insert('lesson_teacher_grade', $data);
+        $arr['created_at'] = TIMESTR;
+        $arr['updated_at'] = TIMESTR;
+        $this->db->insert('lesson_teacher_grade', $arr);
         return $this->db->insert_id();
+    }
+
+    public function getTaskList($where, $start, $count, &$total)
+    {
+        $res = $this->db->select('count(1) as total')
+            ->from('lesson_teacher_grade')
+            ->where($where)
+            ->get()
+            ->row_array();
+
+        $total = $res['total'];
+        return $this->db->select('*')
+            ->from('lesson_teacher_grade')
+            ->where($where)
+            ->limit($count, $start)
+            ->get()
+            ->result_array();
     }
 
 }
