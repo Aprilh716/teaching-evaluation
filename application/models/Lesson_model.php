@@ -55,6 +55,11 @@ class Lesson_model extends CI_Model
         return $this->db->insert_id();
     }
 
+    public function getAllQuestions()
+    {
+        return $this->db->select('*')->from('question')->get()->result_array();
+    }
+
 
     public function addTask($arr)
     {
@@ -79,6 +84,11 @@ class Lesson_model extends CI_Model
             ->limit($count, $start)
             ->get()
             ->result_array();
+    }
+
+    public function getLessonTeacherGrade($id)
+    {
+        return $this->db->get_where('lesson_teacher_grade', array('id'=>$id))->row_array();
     }
 
 }

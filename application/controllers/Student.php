@@ -36,8 +36,17 @@ class Student extends XI_Controller {
         $this->display('student/evaluation.html', $params);
     }
 
-    public function answer_question()
+    public function answer_question($lesson_teacher_grade_id)
     {
-        $this->display('student/answer_question.html', []);
+        $lesson_teacher_grade = $this->lesson_model->getLessonTeacherGrade($lesson_teacher_grade_id);
+        $question_list = $this->lesson_model->getAllQuestions();
+        $answer_list = Conf_model::$answer;
+        $params = [
+            'answer_list' => $answer_list,
+            'question_list' => $question_list,
+            'lesson_teacher_grade' => $lesson_teacher_grade
+        ];
+
+        $this->display('student/answer_question.html', $params);
     }
 }

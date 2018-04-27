@@ -123,7 +123,7 @@ insert into question(description) values
 CREATE TABLE student_answer(
   id int unsigned not null AUTO_INCREMENT,
   lesson_teacher_grade_id int unsigned not null default 0,
-  answer json default null,
+  answer VARCHAR(512) default null,
   sorce bigint unsigned not null default 0 COMMENT '评教总分',
   created_at timestamp not null default CURRENT_TIMESTAMP,
   updated_at timestamp not null default CURRENT_TIMESTAMP,

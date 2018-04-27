@@ -24,66 +24,29 @@
                                 <th>问题</th>
                                 <th>打分</th>
                             </tr>
+                            {{if (!empty($question_list))}}
+                            {{foreach $question_list as $question}}
                             <tr>
-                                <td>1.</td>
-                                <td>课堂气氛怎么样？</td>
+                                <td>{{$question['qid']}}.</td>
+                                <td>{{$question['description']}}</td>
                                 <td>
+                                    {{if ($question['type'] == 0)}}
                                     <div class="form-group score-frame">
+                                        {{foreach $answer_list as $key => $item}}
                                         <label style="margin-right:10px;">
-                                            <input type="radio" name="r1" class="minimal">&nbsp;优秀
+                                            <input type="radio" name="{{$question['qid']}}" class="minimal" value="{{$key}}">&nbsp;{{$item}}
                                         </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r1" class="minimal">&nbsp;中等
-                                        </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r1" class="minimal">&nbsp;差评
-                                        </label>
+                                        {{/foreach}}
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>教学效果如何?</td>
-                                <td>
-                                    <div class="form-group score-frame">
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r2" class="minimal">&nbsp;优秀
-                                        </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r2" class="minimal">&nbsp;中等
-                                        </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r2" class="minimal">&nbsp;差评
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>布置作业质量怎么样？</td>
-                                <td>
-                                    <div class="form-group score-frame">
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r1" class="minimal">&nbsp;优秀
-                                        </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r2" class="minimal">&nbsp;中等
-                                        </label>
-                                        <label style="margin-right:10px;">
-                                            <input type="radio" name="r3" class="minimal">&nbsp;差评
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>写下您对老师的建议？</td>
-                                <td>
+                                    {{else}}
                                     <div class="form-group">
-                                        <textarea class="form-control" name="advice" rows="3" placeholder="Enter ..."></textarea>
+                                        <textarea class="form-control" name="{{$question['qid']}}" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
+                                    {{/if}}
                                 </td>
                             </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
