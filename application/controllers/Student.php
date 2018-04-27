@@ -35,4 +35,9 @@ class Student extends XI_Controller {
         ];
         $this->display('student/evaluation.html', $params);
     }
+
+    public function answer_question()
+    {
+        //
+    }
 }
