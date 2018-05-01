@@ -33,7 +33,11 @@
                                 <td>{{$task['teacher']['name']}}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm">
+                                        {{if ($task['answer'])}}
+                                        已评教
+                                        {{else}}
                                         <a href="/student/answer_question/{{$task['id']}}">进入评教</a>
+                                        {{/if}}
                                     </button>
                                 </td>
                             </tr>

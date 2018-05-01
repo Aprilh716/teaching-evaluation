@@ -20,9 +20,12 @@ class Lesson_model extends CI_Model
 
     public function getAvgScore($teacher_uid)
     {
-        //
-        $lesson_teacher_grade_ids = $this->db->select('id')->from('lesson_teacher_grade')->where('teacher_uid',$teacher_uid)->get()->result_array();
-        return $lesson_teacher_grade_ids;
+        $query = 'select avg(sorce) as avg_sorce from student_answer AS sa 
+                  LEFT JOIN lesson_teacher_grade AS ltg 
+                  ON sa.lesson_teacher_grade_id=ltg.id 
+                  WHERE ltg.teacher_uid=' . $teacher_uid;
+        $lesson_teacher_grade_ids = $this->db->query($query)->row_array();
+        return $lesson_teacher_grade_ids['avg_sorce'];
     }
 
     public function getLesson($lid)
@@ -60,6 +63,11 @@ class Lesson_model extends CI_Model
         return $this->db->select('*')->from('question')->get()->result_array();
     }
 
+    public function getQuestion($qid)
+    {
+        return $this->db->get_where('question', array('qid'=>$qid))->row_array();
+    }
+
 
     public function addTask($arr)
     {
@@ -91,4 +99,16 @@ class Lesson_model extends CI_Model
         return $this->db->get_where('lesson_teacher_grade', array('id'=>$id))->row_array();
     }
 
+    public function addStudentAnswer($arr)
+    {
+        $arr['created_at'] = TIMESTR;
+        $arr['updated_at'] = TIMESTR;
+        $this->db->insert('student_answer', $arr);
+        return $this->db->insert_id();
+    }
+
+    public function getStudentAnswerByWhere($where)
+    {
+        return $this->db->get_where('student_answer', $where)->row_array();
+    }
 }

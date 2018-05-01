@@ -25,7 +25,7 @@ class Admin extends XI_Controller {
         $count = 5;
         $teacher_list = $this->user_model->getUserList(['role' => Conf_model::ROLE_TEACHER], $start, $count, $total);
         foreach ($teacher_list as $k => $v) {
-            //$teacher_list[$k]['sorce'] = $this->lesson_model->getAvgScore($v['uid']);
+            $teacher_list[$k]['sorce'] = intval($this->lesson_model->getAvgScore($v['uid']));
         }
         $pageHtml = getPageHtml($start, $count, $total, '/admin/teach', 'normal');
         $params = [
