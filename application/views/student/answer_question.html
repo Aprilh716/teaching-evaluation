@@ -35,13 +35,13 @@
                                     <div class="form-group score-frame">
                                         {{foreach $answer_list as $key => $item}}
                                         <label style="margin-right:10px;">
-                                            <input type="radio" name="{{$question['qid']}}" class="minimal" value="{{$key}}">&nbsp;{{$item}}
+                                            <input type="radio" required name="{{$question['qid']}}" class="minimal" value="{{$key}}">&nbsp;{{$item}}
                                         </label>
                                         {{/foreach}}
                                     </div>
                                     {{else}}
                                     <div class="form-group">
-                                        <textarea class="form-control" name="{{$question['qid']}}" rows="3" placeholder="Enter ..."></textarea>
+                                        <textarea class="form-control" required name="{{$question['qid']}}" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                     {{/if}}
                                 </td>
@@ -50,10 +50,11 @@
                             {{/if}}
 
                         </table>
+
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="submit" class="btn btn-primary submit-btn">提交</button>
                     </div>
                     </form>
                 </div>
@@ -63,3 +64,26 @@
     </section>
     <!-- /.content -->
 </div>
+
+<script>
+    $(".submit-btn").click(function () {
+
+        // alert(11111);
+        // console.log($("#form"));
+        // return ;
+        // $.ajax({
+		// 	url: "/status/add_question",
+		// 	type: "post",
+		// 	data: {type: type, description: description},
+		// 	success: function (data) {
+		// 		var ret = JSON.parse(data)
+		// 		console.log(ret)
+		// 		if (ret.data.code === 1) {
+		// 			location.reload();
+		// 		} else {
+		// 			alert('录入信息失败，请稍后重试');
+		// 		}
+		// 	},
+		// });
+    });
+</script>
