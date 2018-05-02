@@ -50,6 +50,16 @@ class Lesson_model extends CI_Model
             ->result_array();
     }
 
+    public function getResultList($teacher_uid)
+    {
+        $query = 'select avg(gid) as gid, avg(sorce) as avg_sorce, sum(sorce) as sum_sorce from student_answer AS sa 
+                  LEFT JOIN lesson_teacher_grade AS ltg 
+                  ON sa.lesson_teacher_grade_id=ltg.id 
+                  WHERE ltg.teacher_uid=' . $teacher_uid;
+        $lesson_teacher_grade_ids = $this->db->query($query)->result_array();
+        return $lesson_teacher_grade_ids;//[$lesson_teacher_grade_ids['avg_sorce'], $lesson_teacher_grade_ids['sum_sorce']];
+    }
+
     public function addQuestion($data)
     {
         $data['created_at'] = TIMESTR;

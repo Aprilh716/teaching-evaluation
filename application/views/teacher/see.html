@@ -25,36 +25,19 @@
                                 <th>人数</th>
                                 <th>评分</th>
                             </tr>
+                            {{if ($rets)}}
+                            {{foreach $rets as $key => $val}}
                             <tr>
-                                <td>1.</td>
-                                <td>信息与计算科学132</td>
-                                <td>24</td>
-                                <td>373</td>
+                                <td>{{$key + 1}}.</td>
+                                <td>{{$val['grade_name']}}</td>
+                                <td>{{$val['sum_sorce'] / $val['avg_sorce']}}</td>
+                                <td>{{$val['avg_sorce']}}</td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>信息与计算科学132</td>
-                                <td>24</td>
-                                <td>373</td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>信息与计算科学132</td>
-                                <td>24</td>
-                                <td>373</td>
-                            </tr>
+                            {{/foreach}}
+                            {{/if}}
                         </table>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
                 </div>
                 <!-- /.box -->
             </div>
